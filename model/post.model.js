@@ -9,7 +9,7 @@ async function saveData(post){
 async function createNewPost(post){
     return await saveData(post)
 }
-
+// Id Check for exist user
 async function existPostIdCheck(id){
 
     return mongoose.isValidObjectId(id) && await postDataBase.findById(id);
@@ -30,14 +30,14 @@ async function updatePostData(id,updateBody){
     });
     return update
 }
-
+// Like
 async function like(postId,userId){
     await postDataBase.updateOne({_id:postId},{
         $push:{likes:userId},
         $pull:{dislike:userId}
     })
 }
-
+// Dislike
 async function disLike(postId,userId){
     await postDataBase.updateOne({_id:postId},{
         $push:{dislike:userId},
@@ -45,7 +45,7 @@ async function disLike(postId,userId){
         
     })
 }
-
+// Like Dislike check for post
 async function likePostChek(postId,userId){
     return await postDataBase.findOne({_id:postId,likes:{$in:userId}}) 
 }

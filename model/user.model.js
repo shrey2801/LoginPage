@@ -20,6 +20,8 @@ async function generateJwtToken(userId){
    // console.log(token)
     return token;
 }
+
+// Verify JWT Token
 async function verifyJwtToken(token){
     if(token){
         const jwtToken = jwt.verify(token,"ShreyPatel")

@@ -13,6 +13,16 @@ const addNewDataValid = () => {
     ]
 }
 
+// Validation for Title and Content
+const putValidation = () => {
+    return[
+        body('title').notEmpty().withMessage("Invalid Title Format").isAlpha(),
+        body('content').notEmpty().withMessage("Invalid Content Format").isAlpha()
+    ]
+}
+
+
+// Validation for update data
 const updateDataValid = () => {
     return[
         body('firstName').optional().notEmpty().withMessage("Invalid First Name").isAlpha(),
@@ -22,21 +32,15 @@ const updateDataValid = () => {
     ]
 }
 
-// Validation for Title and Content
-const putValidation = () => {
-    return[
-        body('title').notEmpty().withMessage("Invalid Title Format").isAlpha(),
-        body('content').notEmpty().withMessage("Invalid Content Format").isAlpha()
-    ]
-}
 
+// Email check exist or not
 async function userEmailCheck(value){
     if(!await userMailCheck(value)){
         return true
     }
     throw new Error("Email Id already exist");
 }
-
+// Email Validation 
  function userEmailValidation(){
      const users = [
          check('email',"User not Availabe").isMongoId().custom(userEmailCheck)
@@ -44,7 +48,7 @@ async function userEmailCheck(value){
      return users;
  }
 
-
+// Date validation and check minimum age 
 const datevalid = (dt) => {
     let current = new Date();
     let getDateByUser = new Date(dt);
